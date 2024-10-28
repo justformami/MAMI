@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Page</title>
+    <link rel="stylesheet" href="personal-style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Personal Dashboard</h1>
+        <p>Keep track of your personal information and notes</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="personal-info">
+            <h2>Your Personal Information</h2>
+            <form id="personalInfoForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <input type="tel" id="phone" placeholder="Your Phone Number" required>
+                <textarea id="bio" placeholder="A short bio..."></textarea>
+                <button type="submit">Save Information</button>
+            </form>
+        </section>
+
+        <section class="notes">
+            <h2>Your Notes</h2>
+            <div class="notes-container" id="notesContainer">
+                <!-- Notes will be dynamically added here -->
+            </div>
+            <form id="noteForm">
+                <textarea id="noteInput" placeholder="Write your note here..." required></textarea>
+                <button type="submit">Add Note</button>
+            </form>
+        </section>
+
+        <section class="reminders">
+            <h2>Your Reminders</h2>
+            <form id="reminderForm">
+                <input type="text" id="reminderInput" placeholder="Enter a reminder..." required>
+                <button type="submit">Add Reminder</button>
+            </form>
+            <ul id="reminderList">
+                <!-- Reminders will be dynamically added here -->
+            </ul>
+        </section>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="personal-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badges</title>
+    <link rel="stylesheet" href="badges-style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>My Badges</h2>
+        <div class="badge-counter">
+            <p>Total Badges: <span id="badgeCount">0</span></p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <header class="header">
+            <img src="https://lh3.googleusercontent.com/d/1APRU5V1xKfsZEQ84vjgPQY1HG4vVqE3o" alt="Badge Header Accent" class="header-accent">
+            <h1>Your Achievements</h1>
+            <p>Collect badges as you progress on your health and academic journey!</p>
+        </header>
+
+        <div class="badges-grid">
+            <div class="badge" data-earned="true">
+                <img src="https://lh3.googleusercontent.com/d/1iBSLeUHemPeyejXBZUCFsL7STU9ntC9q" alt="Be Mindful">
+                <h3>Be Mindful</h3>
+                <p>Achieved by maintaining focus in your goals for 7 consecutive days.</p>
+            </div>
+            <div class="badge" data-earned="true">
+                <img src="https://lh3.googleusercontent.com/d/1vh3T36A3vLpCOoBkZ-KiZaZQThHUUikZ" alt="Well Done">
+                <h3>Well Done</h3>
+                <p>Completed your daily hydration goal consistently for a week!</p>
+            </div>
+            <div class="badge" data-earned="true">
+                <img src="https://lh3.googleusercontent.com/d/1WsqnIw2DiTmeRLVEhenMuw4Jc-5Qp-R7" alt="Great Job">
+                <h3>Great Job</h3>
+                <p>Logged academic goals daily for 5 days straight.</p>
+            </div>
+            <div class="badge" data-earned="false">
+                <img src="https://lh3.googleusercontent.com/d/1II6QcSPY1dKcwLVmHwHYaEk0sTKFplsF" alt="Break Time">
+                <h3>Break Time</h3>
+                <p>Remembered to take breaks during study sessions for one week.</p>
+            </div>
+            <div class="badge" data-earned="false">
+                <img src="https://lh3.googleusercontent.com/d/1Klbw044WNVG_N12UULO8rTaV2Q779fjk" alt="Get Grades Better">
+                <h3>Get Grades Better</h3>
+                <p>Tracked academic progress and improvement for 10 consecutive days.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Badge Count -->
+    <script>
+        // Automatically count earned badges and update the sidebar
+        function updateBadgeCount() {
+            const badges = document.querySelectorAll('.badge[data-earned="true"]');
+            const badgeCount = badges.length;
+            document.getElementById('badgeCount').textContent = badgeCount;
+        }
+
+        // Initialize the badge count on page load
+        document.addEventListener('DOMContentLoaded', updateBadgeCount);
+    </script>
+</body>
+</html>

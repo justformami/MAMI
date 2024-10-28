@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Settings</title>
+    <style>
+        /* Body and Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a8e0d4, #d0e7ff); /* Soft pastel blue and green */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Upper Bar */
+        #upper-bar {
+            background-color: #74c8e0; /* Soft pastel blue */
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Main Content Area */
+        #main-content {
+            padding: 20px;
+            flex: 1; /* Takes up remaining space */
+            overflow-y: auto;
+        }
+
+        /* Health Settings Section */
+        #health-settings {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Input and Button Styles */
+        #health-input {
+            padding: 15px;
+            width: calc(100% - 30px);
+            font-size: 1.2em;
+            border-radius: 25px;
+            border: 2px solid #74c8e0; /* Soft pastel blue */
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+            background-color: #f0f8ff; /* Light background */
+        }
+
+        #health-input:focus {
+            border-color: #4db8d8; /* Lighter blue */
+            outline: none;
+        }
+
+        #add-health-btn {
+            padding: 12px;
+            font-size: 1.2em;
+            background-color: #5ed6a0; /* Soft pastel green */
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 5px 15px rgba(94, 214, 160, 0.5);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #add-health-btn:hover {
+            background-color: #4bbf8a; /* Darker green */
+            transform: scale(1.05);
+        }
+
+        /* Health Log Table */
+        #health-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #health-table th, #health-table td {
+            border: 1px solid #74c8e0; /* Soft pastel blue border */
+            padding: 15px;
+            text-align: center;
+            border-radius: 15px; /* Rounded edges for cells */
+        }
+
+        #health-table th {
+            background-color: #d1f7e5; /* Light pastel green */
+            color: #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            #health-input {
+                font-size: 1em;
+            }
+
+            #add-health-btn {
+                font-size: 1em;
+                padding: 10px;
+            }
+
+            #health-table th, #health-table td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="upper-bar">Health Settings</div>
+
+<div id="main-content">
+    <div id="health-settings">
+        <h1>Log Your Health Data</h1>
+        <input type="text" id="health-input" placeholder="Enter health metric (e.g., water intake)" />
+        <button id="add-health-btn" onclick="addHealthData()">Add Health Data</button>
+
+        <table id="health-table">
+            <thead>
+                <tr>
+                    <th>Health Metric</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="health-list"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Array to store health data
+    let healthData = [];
+
+    // Function to add new health data
+    function addHealthData() {
+        const healthInput = document.getElementById("health-input");
+        const healthText = healthInput.value.trim();
+        const currentDate = new Date().toLocaleDateString();
+
+        if (healthText) {
+            const newHealthEntry = {
+                text: healthText,
+                date: currentDate
+            };
+            healthData.push(newHealthEntry);
+            healthInput.value = "";  // Clear input
+            displayHealthData();
+        } else {
+            alert("Please enter a health metric before adding.");
+        }
+    }
+
+    // Function to display health data in the table
+    function displayHealthData() {
+        const healthList = document.getElementById("health-list");
+        healthList.innerHTML = "";  // Clear existing list
+
+        healthData.forEach((entry, index) => {
+            const healthRow = document.createElement("tr");
+            healthRow.innerHTML = `
+                <td>${entry.text}</td>
+                <td>${entry.date}</td>
+                <td>
+                    <button onclick="deleteHealthData(${index})">Delete</button>
+                </td>
+            `;
+            healthList.appendChild(healthRow);
+        });
+    }
+
+    // Function to delete health data
+    function deleteHealthData(index) {
+        healthData.splice(index, 1);  // Remove entry from array
+        displayHealthData();
+    }
+</script>
+</body>
+</html>

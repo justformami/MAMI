@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffc1e3, #c1caff, #e0ffe0, #f5c1ff);
+  font-family: Arial, sans-serif;
+}
+
+.intro-container {
+  text-align: center;
+  animation: fadeIn 2s ease;
+}
+
+.logo-placeholder {
+  margin-bottom: 20px;
+}
+
+.mami-logo {
+  width: 500px;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+.start-button-container {
+  margin-top: 20px;
+}
+
+.start-button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: white;
+  background: linear-gradient(45deg, #ff8abf, #a3e4ff);
+  border-radius: 25px;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.start-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}

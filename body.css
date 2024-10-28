@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #FFB6C1, #FFC3A0, #D1E8E2);
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(to right, #FF9A9E, #FAD0C4);
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+.body-composition {
+    padding: 20px;
+}
+
+.composition-form {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+label {
+    margin: 10px 0 5px;
+}
+
+input[type="number"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF6F61;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #FF4A3A;
+}
+
+.composition-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.composition-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.composition-card h3 {
+    margin-top: 0;
+}

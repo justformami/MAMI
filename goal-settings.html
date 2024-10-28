@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Settings</title>
+    <style>
+        /* Body and Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff77a1, #f9c99c, #b1e1fc);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sidebar */
+        #sidebar {
+            width: 200px;
+            background-color: #ffcccb; /* Light pink */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            border-right: 2px solid #ff77a1;
+        }
+
+        #sidebar h2 {
+            text-align: center;
+            color: #ff1a66; /* Neon pink */
+            margin: 0;
+        }
+
+        /* Main Content Area */
+        #main-content {
+            margin-left: 220px; /* Sidebar width + padding */
+            padding: 20px;
+            width: calc(100% - 220px);
+            overflow-y: auto;
+        }
+
+        /* Goal Settings Table */
+        #goal-settings {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow-x: auto; /* Allow horizontal scroll for small screens */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Image beside the header */
+        h1 img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        /* Input and Button Styles */
+        #goal-input {
+            padding: 15px;
+            width: calc(100% - 30px);
+            font-size: 1.2em;
+            border-radius: 25px;
+            border: 2px solid #ff77a1; /* Light pink */
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+            background-color: #f8f8f8; /* Light background */
+        }
+
+        #goal-input:focus {
+            border-color: #ff1a66; /* Neon pink */
+            outline: none;
+        }
+
+        #set-goal-btn {
+            padding: 12px;
+            font-size: 1.2em;
+            background-color: #ff1a66; /* Bright neon pink */
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 26, 102, 0.5);
+        }
+
+        #set-goal-btn:hover {
+            background-color: #ff69b4; /* Lighter pink */
+            transform: scale(1.05);
+        }
+
+        /* Goal List Table */
+        #goal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #goal-table th, #goal-table td {
+            border: 1px solid #ff77a1; /* Light pink border */
+            padding: 10px;
+            text-align: center;
+        }
+
+        #goal-table th {
+            background-color: #ffcccb; /* Light pink */
+            color: #333;
+        }
+
+        .goal-item.completed {
+            background-color: #c1f0c1; /* Completed goal color */
+            text-decoration: line-through;
+            color: #777;
+        }
+
+        /* Buttons within Goals */
+        .complete-btn, .delete-btn, .status-btn {
+            background-color: #ffcccb; /* Light pink */
+            color: #333;
+            border: none;
+            border-radius: 25px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .complete-btn:hover, .delete-btn:hover, .status-btn:hover {
+            background-color: #ffb3b3; /* Darker pink on hover */
+            transform: scale(1.05);
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 600px) {
+            #main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            #goal-settings {
+                padding: 15px;
+            }
+
+            #goal-input {
+                font-size: 1em;
+            }
+
+            #set-goal-btn {
+                font-size: 1em;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <h2>My Goals</h2>
+</div>
+
+<div id="main-content">
+    <h1><img src="https://lh3.googleusercontent.com/d/1AKDC4s3z_1jBUlYudwRKPFT6fLj7M0CL" alt="Goal Icon">Set Your Goals</h1>
+
+    <div id="goal-settings">
+        <input type="text" id="goal-input" placeholder="Enter your goal here" />
+        <button id="set-goal-btn" onclick="addGoal()">Set Goal</button>
+
+        <table id="goal-table">
+            <thead>
+                <tr>
+                    <th>Goal</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="goal-list"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Array to store goals
+    let goals = [];
+
+    // Function to add a new goal
+    function addGoal() {
+        const goalInput = document.getElementById("goal-input");
+        const goalText = goalInput.value.trim();
+
+        if (goalText) {
+            const newGoal = {
+                text: goalText,
+                status: "In Progress"
+            };
+            goals.push(newGoal);
+            goalInput.value = "";  // Clear input
+            displayGoals();
+        } else {
+            alert("Please enter a goal before adding.");
+        }
+    }
+
+    // Function to display goals in the table
+    function displayGoals() {
+        const goalList = document.getElementById("goal-list");
+        goalList.innerHTML = "";  // Clear existing list
+
+        goals.forEach((goal, index) => {
+            const goalRow = document.createElement("tr");
+            goalRow.className = goal.completed ? "goal-item completed" : "goal-item";
+            goalRow.innerHTML = `
+                <td>${goal.text}</td>
+                <td>
+                    <select class="status-btn" onchange="changeStatus(${index}, this.value)">
+                        <option value="In Progress" ${goal.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                        <option value="Completed" ${goal.status === "Completed" ? "selected" : ""}>Completed</option>
+                        <option value="Pending" ${goal.status === "Pending" ? "selected" : ""}>Pending</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="complete-btn" onclick="completeGoal(${index})">
+                        ${goal.completed ? "Undo" : "Complete"}
+                    </button>
+                    <button class="delete-btn" onclick="deleteGoal(${index})">Delete</button>
+                </td>
+            `;
+            goalList.appendChild(goalRow);
+        });
+    }
+
+    // Function to change the status of a goal
+    function changeStatus(index, status) {
+        goals[index].status = status;  // Update goal status
+    }
+
+    // Function to mark a goal as complete
+    function completeGoal(index) {
+        goals[index].completed = !goals[index].completed;  // Toggle completion
+        displayGoals();
+    }
+
+    // Function to delete a goal
+    function deleteGoal(index) {
+        goals.splice(index, 1);  // Remove goal from array
+        displayGoals();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Page</title>
+    <link rel="stylesheet" href="journal-style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Your Journal</h1>
+        <p>Capture your thoughts, reflections, and dreams</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="entry-form">
+            <h2>New Entry</h2>
+            <form id="journalForm">
+                <input type="date" id="entryDate" required>
+                <textarea id="entryContent" placeholder="Write your thoughts here..." required></textarea>
+                <button type="submit">Save Entry</button>
+            </form>
+        </section>
+
+        <section class="entries">
+            <h2>Your Entries</h2>
+            <div class="entries-container" id="entriesContainer">
+                <!-- Journal entries will be dynamically added here -->
+            </div>
+        </section>
+
+        <section class="prompts">
+            <h2>Journal Prompts</h2>
+            <ul class="prompts-list">
+                <li>What made you smile today?</li>
+                <li>What are three things you're grateful for?</li>
+                <li>Describe a challenge you faced and how you overcame it.</li>
+                <li>What do you want to achieve this week?</li>
+                <li>Reflect on a recent experience that made you feel proud.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="journal-script.js"></script>
+</body>
+</html>

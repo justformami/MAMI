@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Manager</title>
+    <style>
+        /* Body and Background */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ffc1cc, #c1f0c1, #e1c5f0, #c1e1f0);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Goal Manager Container */
+        #goal-manager {
+            width: 90%;
+            max-width: 500px;
+            background-color: #ffcccb; /* Soft pastel peach */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #ff69b4; /* Neon pink */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p { 
+            color: #666;
+            margin-bottom: 20px; 
+        }
+
+        /* Input and Button Styles */
+        #goal-input {
+            padding: 10px;
+            width: 80%;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            background: url('https://www.transparenttextures.com/patterns/paper.png'); /* Pattern background */
+            background-color: rgba(255, 255, 255, 0.5); /* Light background */
+            transition: border-color 0.3s;
+        }
+
+        #goal-input:focus {
+            border-color: #ff69b4; /* Neon pink */
+            outline: none;
+        }
+
+        #add-goal-btn {
+            padding: 10px;
+            font-size: 1em;
+            background-color: #ff69b4; /* Neon pink */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        #add-goal-btn:hover {
+            background-color: #ff1a66; /* Brighter neon pink on hover */
+        }
+
+        /* Goal List */
+        #goal-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .goal-item {
+            background-color: #e6ccff; /* Light purple */
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .goal-item:hover {
+            background-color: #d4b7f5; /* Hover effect */
+        }
+
+        .goal-item.completed {
+            background-color: #c1e1f0; /* Completed goal color */
+            text-decoration: line-through;
+            color: #777;
+        }
+
+        /* Buttons within Goals */
+        .complete-btn, .delete-btn {
+            background-color: #ffcccb; /* Light pink */
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+
+        .complete-btn:hover, .delete-btn:hover {
+            background-color: #ffb3b3; /* Hover effect */
+        }
+
+        /* Image as a decorative element */
+        #background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://lh3.googleusercontent.com/d/1A1KTY0iT1yHtRIHhSNNJgwIFIUCqSB5X');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        #goal-manager > * {
+            position: relative; /* Ensure content is above the background */
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="background-image"></div>
+<h1>Goal Manager</h1>
+<p>Set, track, and complete your academic and health goals!</p>
+
+<div id="goal-manager">
+    <input type="text" id="goal-input" placeholder="Enter your goal here" />
+    <button id="add-goal-btn" onclick="addGoal()">Add Goal</button>
+
+    <ul id="goal-list"></ul>
+</div>
+
+<script>
+    // Array to store goals
+    let goals = [];
+
+    // Function to add a new goal
+    function addGoal() {
+        const goalInput = document.getElementById("goal-input");
+        const goalText = goalInput.value.trim();
+
+        if (goalText) {
+            const newGoal = {
+                text: goalText,
+                completed: false
+            };
+            goals.push(newGoal);
+            goalInput.value = "";  // Clear input
+            displayGoals();
+        } else {
+            alert("Please enter a goal before adding.");
+        }
+    }
+
+    // Function to display goals in the list
+    function displayGoals() {
+        const goalList = document.getElementById("goal-list");
+        goalList.innerHTML = "";  // Clear existing list
+
+        goals.forEach((goal, index) => {
+            const goalItem = document.createElement("li");
+            goalItem.className = "goal-item" + (goal.completed ? " completed" : "");
+            goalItem.innerHTML = `
+                ${goal.text}
+                <div>
+                    <button class="complete-btn" onclick="completeGoal(${index})">
+                        ${goal.completed ? "Undo" : "Complete"}
+                    </button>
+                    <button class="delete-btn" onclick="deleteGoal(${index})">Delete</button>
+                </div>
+            `;
+            goalList.appendChild(goalItem);
+        });
+    }
+
+    // Function to mark a goal as complete
+    function completeGoal(index) {
+        goals[index].completed = !goals[index].completed;  // Toggle completion
+        displayGoals();
+    }
+
+    // Function to delete a goal
+    function deleteGoal(index) {
+        goals.splice(index, 1);  // Remove goal from array
+        displayGoals();
+    }
+</script>
+
+</body>
+</html>

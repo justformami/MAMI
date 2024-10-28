@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tracker</title>
+    <link rel="stylesheet" href="water-style.css">
+</head>
+<body>
+    <header>
+        <h1>Stay Hydrated!</h1>
+        <p>Track your water intake and get reminders to drink more water.</p>
+    </header>
+    <main>
+        <section class="water-tracker">
+            <div class="input-section">
+                <label for="water-intake">Enter your water intake (ml):</label>
+                <input type="number" id="water-intake" placeholder="e.g., 500" required>
+                <button id="log-button">Log Water</button>
+            </div>
+            <div class="reminder-section">
+                <h2>Daily Intake Goal</h2>
+                <input type="number" id="daily-goal" placeholder="Set your daily goal (ml)" required>
+                <button id="set-goal">Set Goal</button>
+                <h3 id="goal-message"></h3>
+            </div>
+            <div class="history-section">
+                <h2>Water Intake History</h2>
+                <ul id="water-history"></ul>
+            </div>
+        </section>
+    </main>
+    <script src="water-script.js"></script>
+</body>
+</html>
